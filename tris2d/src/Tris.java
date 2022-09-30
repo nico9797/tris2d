@@ -3,72 +3,206 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-
 public class Tris implements ActionListener {
-    boolean flag=true;
-    GridLayout grid=new GridLayout(3,3);
-    BorderLayout border=new BorderLayout();
-    JPanel panel=new JPanel();
-    JPanel panel2=new JPanel();
+    boolean flag = true;
+    GridLayout grid = new GridLayout(3, 3);
+    BorderLayout border = new BorderLayout();
+    JPanel panel = new JPanel();
+    JPanel panel2 = new JPanel();
+    JButton[] button = new JButton[9];
+    JButton restartButton = new JButton("Restart");
+    Random r = new Random();
 
-    JButton[] button=new JButton[9];
-    JButton restartButton=new JButton("Restart");
-    Random r=new Random();
-
-    Tris(){
-        JFrame frame=new JFrame("TRIS");
+    Tris() {
+        JFrame frame = new JFrame("TRIS");
         frame.setVisible(true);
-        frame.setSize(500,500);
+        frame.setSize(500, 500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(panel);
-        panel.setSize(500,500);
+        panel.setSize(500, 500);
         panel.setLayout(border);
-        panel.add(panel2,BorderLayout.CENTER);
+        panel.add(panel2, BorderLayout.CENTER);
         panel2.setLayout(grid);
-        panel.add(restartButton,BorderLayout.SOUTH);
-        for(int i=0;i<9;i++){
-            button[i]=new JButton();
+        panel.add(restartButton, BorderLayout.SOUTH);
+        for (int i = 0; i < 9; i++) {
+            button[i] = new JButton();
             panel2.add(button[i]);
             button[i].addActionListener(this);
-            button[i].setFont(new Font("Monospaced",Font.BOLD+Font.ITALIC,40));
+            button[i].setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 40));
         }
         restartButton.addActionListener(this);
-        restartButton.setFont(new Font("Monospaced",Font.BOLD+Font.ITALIC,40));
+        restartButton.setFont(new Font("Monospaced", Font.BOLD + Font.ITALIC, 40));
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==restartButton){
+        if (e.getSource() == restartButton) {
             restart();
-            for(int i=0;i<9;i++) {
+            for (int i = 0; i < 9; i++) {
                 button[i].setEnabled(true);
                 button[i].setBackground(Color.white);
             }
         }
-
-        if(flag) {
+        if (flag) {
             for (int i = 0; i < 9; i++) {
-                if (e.getSource() == button[i]&&button[i].getText()=="") {
+                if (e.getSource() == button[i] && button[i].getText() == "") {
                     button[i].setText("X");
-                   win();
-                    flag=false;
+                    win();
+                    flag = false;
                 }
             }
         }
-        int n=0;
-        while(!flag&&n<1000){
-            n++;
-
-            int j=r.nextInt(9); System.out.print(j);
-            if(button[j].getText()==""){
-                button[j].setText("O");
-
+        while (!flag && !isFull()) {
+            if (button[0].getText() == "X" && button[1].getText() == "X"&& button[2].getText() == "") {
+                button[2].setText("O");
                 win();
-                flag=true;
+                flag = true;
             }
+            else if (button[1].getText() == "X" && button[2].getText() == "X"&& button[0].getText() == "") {
+                button[0].setText("O");
+                win();
+                flag = true;
+            }
+           else if (button[0].getText() == "X" && button[2].getText() == "X"&& button[1].getText() == "") {
+                button[1].setText("O");
+                win();
+                flag = true;
+            }
+           //2
+            else if (button[3].getText() == "X" && button[4].getText() == "X"&& button[5].getText() == "") {
+                button[5].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[4].getText() == "X" && button[5].getText() == "X"&& button[3].getText() == "") {
+                button[3].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[3].getText() == "X" && button[5].getText() == "X"&& button[4].getText() == "") {
+                button[4].setText("O");
+                win();
+                flag = true;
+            }
+
+            //3
+            else if (button[6].getText() == "X" && button[7].getText() == "X"&& button[8].getText() == "") {
+                button[8].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[7].getText() == "X" && button[8].getText() == "X"&& button[6].getText() == "") {
+                button[6].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[6].getText() == "X" && button[8].getText() == "X"&& button[7].getText() == "") {
+                button[7].setText("O");
+                win();
+                flag = true;
+            }
+            //verticale 1
+            else if (button[0].getText() == "X" && button[3].getText() == "X"&& button[6].getText() == "") {
+                button[6].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[3].getText() == "X" && button[6].getText() == "X"&& button[0].getText() == "") {
+                button[0].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[0].getText() == "X" && button[6].getText() == "X"&& button[3].getText() == "") {
+                button[3].setText("O");
+                win();
+                flag = true;
+            }
+            //vertic 2
+            else if (button[1].getText() == "X" && button[4].getText() == "X"&& button[7].getText() == "") {
+                button[7].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[4].getText() == "X" && button[7].getText() == "X"&& button[1].getText() == "") {
+                button[1].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[1].getText() == "X" && button[7].getText() == "X"&& button[4].getText() == "") {
+                button[4].setText("O");
+                win();
+                flag = true;
+            }
+            //vert 3
+            else if (button[2].getText() == "X" && button[5].getText() == "X"&& button[8].getText() == "") {
+                button[8].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[5].getText() == "X" && button[8].getText() == "X"&& button[2].getText() == "") {
+                button[2].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[2].getText() == "X" && button[8].getText() == "X"&& button[5].getText() == "") {
+                button[5].setText("O");
+                win();
+                flag = true;
+            }
+            //obl 1
+            else if (button[0].getText() == "X" && button[4].getText() == "X"&& button[8].getText() == "") {
+                button[8].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[4].getText() == "X" && button[8].getText() == "X"&& button[0].getText() == "") {
+                button[0].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[0].getText() == "X" && button[8].getText() == "X"&& button[4].getText() == "") {
+                button[4].setText("O");
+                win();
+                flag = true;
+            }
+
+            //obl 2
+            else if (button[2].getText() == "X" && button[4].getText() == "X"&& button[6].getText() == "") {
+                button[6].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[4].getText() == "X" && button[6].getText() == "X"&& button[2].getText() == "") {
+                button[2].setText("O");
+                win();
+                flag = true;
+            }
+            else if (button[2].getText() == "X" && button[6].getText() == "X"&& button[4].getText() == "") {
+                button[4].setText("O");
+                win();
+                flag = true;
+            }
+
+                else {
+                    int j = r.nextInt(9);
+                    System.out.print(j);
+                    if (button[j].getText() == "") {
+                        button[j].setText("O");
+                        win();
+                        flag = true;
+                    }
+                }
+
             }
         }
 
+    boolean isFull(){
+        for (int i=0;i<9;i++){
+            if(button[i].getText()=="")
+                return false;
+        }
+        return true;
+    }
         boolean win(){
             if(button[0].getText()=="X"&&button[1].getText()=="X"&&button[2].getText()=="X"){
                 button[0].setBackground(Color.green);
@@ -126,8 +260,6 @@ public class Tris implements ActionListener {
                 for(int i=0;i<9;i++) button[i].setEnabled(false);
                 return true;
             }
-
-
             if(button[0].getText()=="O"&&button[1].getText()=="O"&&button[2].getText()=="O"){
                 button[0].setBackground(Color.RED);
                 button[1].setBackground(Color.RED);
@@ -192,4 +324,3 @@ public class Tris implements ActionListener {
         }
     }
     }
-
